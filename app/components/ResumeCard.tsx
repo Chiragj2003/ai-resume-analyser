@@ -11,6 +11,7 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
     const hasFeedback = typeof feedback === 'object' && feedback !== null;
     const overallScore = hasFeedback ? feedback.overallScore ?? 0 : 0;
 
+    // Prefer showing an actionable tip (improvement if available) beneath each card.
     const highlightTip = useMemo(() => {
         if (!hasFeedback) return null;
         const tips = feedback.ATS?.tips ?? [];

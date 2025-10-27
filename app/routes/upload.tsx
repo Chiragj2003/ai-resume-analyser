@@ -27,6 +27,7 @@ const Upload = () => {
         setIsProcessing(true);
         setError(null);
 
+        // Surface the current step in the UI while we stream work through Puter and the AI helper.
         try {
             setStatusText('Uploading resume…');
             const uploadedFile = await fs.upload([file]);

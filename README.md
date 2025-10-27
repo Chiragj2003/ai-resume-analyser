@@ -91,53 +91,80 @@ Make sure you have the following installed on your machine:
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
+# Resumind – AI Resume Analyzer
 
-**Cloning the Repository**
+A React Router application that uploads resumes to Puter, runs AI analysis, and presents friendly feedback dashboards for applicants. The UI is tuned for quick scanning, mobile responsiveness, and fast deployments on Vercel.
 
-```bash
-git clone https://github.com/adrianhajdin/ai-resume-analyzer.git
-cd ai-resume-analyzer
+## Features
+- Secure Puter authentication with resume storage tuned for blob lifecycle safety.
+- Guided upload flow with status updates, validation, and instant ATS-style feedback.
+- Dashboard that tracks previous analyses, highlights key tips, and previews stored resumes.
+- Production-ready Vercel configuration (`api/index.js`, `vercel.json`) for zero-config SSR hosting.
+
+## Tech Stack
+- React 19 + React Router v7
+- Tailwind CSS (via `@tailwindcss/vite`) and tw-animate
+- TypeScript + Vite
+- Zustand for state, Puter SDK for auth/storage/AI
+
+## Prerequisites
+- Node.js 20+
+- npm 10+
+- A Puter account (login handled client-side; no secrets required locally)
+
+## Getting Started
+1. **Clone**
+   ```bash
+   git clone https://github.com/Chiragj2003/ai-resume-analyser.git
+   cd ai-resume-analyser
+   ```
+2. **Install**
+   ```bash
+   npm install
+   ```
+3. **Run locally**
+   ```bash
+   npm run dev
+   ```
+   Visit `http://localhost:5173` and sign in with your Puter account when prompted.
+4. **Build**
+   ```bash
+   npm run build
+   ```
+5. **Type check (optional)**
+   ```bash
+   npm run typecheck
+   ```
+
+## Environment Notes
+- Authentication, KV storage, and file system access are handled through the Puter SDK (`app/lib/puter.ts`).
+- No `.env` file is required; Puter scripts load from `https://js.puter.com/v2/` in `app/root.tsx`.
+- If you switch providers, update the store inside `app/lib/puter.ts` and any dependent routes/components.
+
+## Deployment (Vercel)
+1. Push the repo to GitHub (already configured).
+2. In Vercel, click **Add New Project** → **Import Git Repository**.
+3. Leave the automatic commands (`npm install`, `npm run build`). Output directory is auto-detected from `vercel.json`.
+4. Deploy. During runtime Vercel uses the Node 20 serverless function in `api/index.js` to serve SSR responses.
+5. Subsequent pushes to `main` will trigger preview + production deployments automatically.
+
+## Project Structure
+```
+app/
+  components/   // Resume cards, summary widgets, uploader, navbar
+  routes/       // auth, home dashboard, upload flow, resume detail
+  lib/          // Puter SDK bindings, utilities, PDF helpers
+api/index.js    // React Router handler for Vercel
+vercel.json     // Vercel routing and build configuration
 ```
 
-**Installation**
+## Available Scripts
+| Command             | Description                               |
+|---------------------|-------------------------------------------|
+| `npm run dev`       | Start the dev server with HMR              |
+| `npm run build`     | Create production client + SSR bundles     |
+| `npm run start`     | Serve the built bundle locally             |
+| `npm run typecheck` | Generate type routes and run `tsc`         |
 
-Install the project dependencies using npm:
-
-```bash
-npm install
-```
-
-**Running the Project**
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser to view the project.
-
-## ☁️ Deploy in Minutes (GitHub ➜ Vercel)
-
-1. **Create a GitHub repo** – initialise a repository and push this code: `git init`, `git add .`, `git commit -m "chore: initial import"`, `git remote add origin <your-repo-url>`, `git push -u origin main`.
-2. **Connect Vercel** – log in to [vercel.com](https://vercel.com), choose *Add New Project*, and import the GitHub repository you just pushed.
-3. **Leave the defaults** – the included `vercel.json` routes all traffic through the bundled React Router handler in `api/index.js`, so Vercel will run SSR automatically with Node 20. Build/install commands are already set (`npm run build`, `npm install`).
-4. **Add environment variables (optional)** – if you rely on custom Puter credentials, configure them under *Settings → Environment Variables*.
-5. **Deploy** – click *Deploy`. Every push to `main` (or whichever branch you select) will now trigger automatic previews and production deployments.
-
-## <a name="links">🔗 Assets</a>
-
-Assets and snippets used in the project can be found in the **[video kit](https://jsm.dev/resumind-kit)**.
-
-<a href="https://jsm.dev/resumind-kit" target="_blank">
-  <img src="public/readme/videokit.webp" alt="Video Kit Banner">
-</a>
-
-## <a name="more">🚀 More</a>
-
-**Advance your skills with Next.js Pro Course**
-
-Enjoyed creating this project? Dive deeper into our PRO courses for a richer learning adventure. They're packed with
-detailed explanations, cool features, and exercises to boost your skills. Give it a go!
-
-<a href="https://jsm.dev/resumind-courses" target="_blank">
-  <img src="public/readme/jsmpro.webp" alt="Project Banner">
-</a>
+## Contributing
+PRs and issues are welcome! Please open an issue describing changes before submitting large updates.

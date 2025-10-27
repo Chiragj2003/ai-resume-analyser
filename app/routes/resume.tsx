@@ -36,6 +36,7 @@ const Resume = () => {
     useEffect(() => {
         let isCancelled = false;
 
+        // Pull the stored resume assets from Puter and manage their lifecycle safely.
         const clearObjectUrls = () => {
             if (resumeUrlRef.current) {
                 URL.revokeObjectURL(resumeUrlRef.current);
