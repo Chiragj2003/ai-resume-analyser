@@ -4,9 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
+    "vercel-build": "npm run build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "dependencies": {
     "@react-router/node": "^7.5.3",
