@@ -1,9 +1,14 @@
 {
-  "framework": null,
+  "version": 2,
   "buildCommand": "npm run build",
   "installCommand": "npm install",
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "build/client" } },
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/api/index" }
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "(.*)", "dest": "/api/index" }
   ]
 }
